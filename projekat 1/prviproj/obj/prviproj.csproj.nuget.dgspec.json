@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\stame\\Desktop\\sistemsko\\sistemsko-projekat\\projekat 1\\PrviLab\\PrviLab.csproj": {}
+    "C:\\Users\\stame\\Desktop\\sistemsko\\sistemsko-projekat\\projekat 1\\prviproj\\prviproj.csproj": {}
   },
   "projects": {
-    "C:\\Users\\stame\\Desktop\\sistemsko\\sistemsko-projekat\\projekat 1\\PrviLab\\PrviLab.csproj": {
+    "C:\\Users\\stame\\Desktop\\sistemsko\\sistemsko-projekat\\projekat 1\\prviproj\\prviproj.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\stame\\Desktop\\sistemsko\\sistemsko-projekat\\projekat 1\\PrviLab\\PrviLab.csproj",
-        "projectName": "PrviLab",
-        "projectPath": "C:\\Users\\stame\\Desktop\\sistemsko\\sistemsko-projekat\\projekat 1\\PrviLab\\PrviLab.csproj",
+        "projectUniqueName": "C:\\Users\\stame\\Desktop\\sistemsko\\sistemsko-projekat\\projekat 1\\prviproj\\prviproj.csproj",
+        "projectName": "prviproj",
+        "projectPath": "C:\\Users\\stame\\Desktop\\sistemsko\\sistemsko-projekat\\projekat 1\\prviproj\\prviproj.csproj",
         "packagesPath": "C:\\Users\\stame\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\stame\\Desktop\\sistemsko\\sistemsko-projekat\\projekat 1\\PrviLab\\obj\\",
+        "outputPath": "C:\\Users\\stame\\Desktop\\sistemsko\\sistemsko-projekat\\projekat 1\\prviproj\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\stame\\AppData\\Roaming\\NuGet\\NuGet.Config"
