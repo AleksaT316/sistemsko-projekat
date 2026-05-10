@@ -156,7 +156,7 @@ namespace SistemP_Projekat
                                     // NEGATIVE CACHING fora: ako pukne ili nas blokiraju, kesiraj to nakratko (30s)
                                     // da ne bi uleteli u beskonacnu petlju slanja zahteva i skroz pukli
                                     _cache[cacheKey] = new CacheItem { Data = rezultat, ExpirationTime = DateTime.Now.AddSeconds(30) };
-                                    Console.WriteLine("Upisana greska u kesu!!");
+                                    Console.WriteLine("Upisana greska u kesu!! " + response.StatusCode);
                                 }
                             }
                             catch (Exception ex)
