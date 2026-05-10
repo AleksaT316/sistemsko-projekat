@@ -1,0 +1,15 @@
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\bin\Debug\net10.0\PrviLab.exe
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\bin\Debug\net10.0\PrviLab.deps.json
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\bin\Debug\net10.0\PrviLab.runtimeconfig.json
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\bin\Debug\net10.0\PrviLab.dll
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\bin\Debug\net10.0\PrviLab.pdb
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\obj\Debug\net10.0\PrviLab.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\obj\Debug\net10.0\PrviLab.AssemblyInfoInputs.cache
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\obj\Debug\net10.0\PrviLab.AssemblyInfo.cs
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\obj\Debug\net10.0\PrviLab.csproj.CoreCompileInputs.cache
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\obj\Debug\net10.0\PrviLab.sourcelink.json
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\obj\Debug\net10.0\PrviLab.dll
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\obj\Debug\net10.0\refint\PrviLab.dll
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\obj\Debug\net10.0\PrviLab.pdb
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\obj\Debug\net10.0\PrviLab.genruntimeconfig.cache
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 1\PrviLab\obj\Debug\net10.0\ref\PrviLab.dll
