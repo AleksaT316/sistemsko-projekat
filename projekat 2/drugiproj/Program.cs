@@ -1,19 +1,21 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.Threading.Channels; // Obavezno dodaj ovaj namespace
 using System.Threading.Tasks;
 
 namespace SistemP_Projekat
 {
     class Program
     {
-        private static readonly BlockingCollection<HttpListenerContext> _requestQueue = new BlockingCollection<HttpListenerContext>();
+        // 1. ZAMENA: Umesto BlockingCollection, pravimo Unbounded (neograničeni) asinhroni kanal
+        private static readonly Channel<HttpListenerContext> _requestChannel = Channel.CreateUnbounded<HttpListenerContext>(
+            new UnboundedChannelOptions { SingleReader = true, SingleWriter = false }
+        );
         
         private static readonly int _maxConcurrency = 20;
         private static readonly SemaphoreSlim _processingSemaphore = new SemaphoreSlim(_maxConcurrency, _maxConcurrency);
-        
         private static readonly CancellationTokenSource _cts = new CancellationTokenSource();
 
         static async Task Main(string[] args)
@@ -33,30 +35,27 @@ namespace SistemP_Projekat
                 
                 _cts.Cancel(); 
                 listener.Stop(); 
-                _requestQueue.CompleteAdding(); 
+                _requestChannel.Writer.Complete(); // Označavamo kanalu da više nema upisa
             };
 
-            // Pokrećemo pozadinski zadatak iz CacheManager-a
             _ = Task.Factory.StartNew(() => CacheManager.CistiIstekaoKesAsync(_cts.Token), TaskCreationOptions.LongRunning).Unwrap();
             
-            // Dispatcher za raspoređivanje zahteva
-            _ = Task.Run(() => RasporediZahteve(_cts.Token));
+            // Asinhroni Dispatcher za raspoređivanje zahteva
+            _ = Task.Run(() => RasporediZahteveAsync(_cts.Token));
 
             try
             {
                 while (!_cts.Token.IsCancellationRequested)
                 {
                     HttpListenerContext context = await listener.GetContextAsync();
-                    _requestQueue.Add(context);
+                    
+                    // 2. ASINHRONI UPIS U KANAL: Umesto .Add() koristimo TryWrite ili WriteAsync
+                    _requestChannel.Writer.TryWrite(context);
                 }
             }
             catch (HttpListenerException)
             {
                 Console.WriteLine("[Main] Listener uspešno zaustavljen.");
-            }
-            catch (InvalidOperationException)
-            {
-                // Ignorišemo, dešava se ako se uradi Add() nakon CompleteAdding()
             }
             catch (Exception ex)
             {
@@ -72,29 +71,35 @@ namespace SistemP_Projekat
             Console.WriteLine("[Sistem] Svi zahtevi obrađeni. Server je bezbedno ugašen.");
         }
 
-        static void RasporediZahteve(CancellationToken token)
+        // 3. ASINHRONI DISPATCHER (Potpuno neblokirajući rad)
+        static async Task RasporediZahteveAsync(CancellationToken token)
         {
             try
             {
-                foreach (var context in _requestQueue.GetConsumingEnumerable(token))
+                // WaitToReadAsync asinhrono čeka da se pojavi nešto u kanalu (0% CPU, 0 blokiranih niti)
+                while (await _requestChannel.Reader.WaitToReadAsync(token))
                 {
-                    _processingSemaphore.Wait(token);
+                    // Izvlačimo sve dostupne zahteve iz kanala
+                    while (_requestChannel.Reader.TryRead(out var context))
+                    {
+                        // Čekamo dozvolu semafora asinhrono pre nego što pustimo task u rad
+                        await _processingSemaphore.WaitAsync(token);
 
-                    // Pozivamo odvojenu biznis logiku iz RequestHandler-a
-                    RequestHandler.ObradiZahtevAsync(context)
-                        .ContinueWith(t =>
-                        {
-                            _processingSemaphore.Release();
-                            if (t.IsFaulted)
+                        _ = RequestHandler.ObradiZahtevAsync(context)
+                            .ContinueWith(t =>
                             {
-                                Console.WriteLine($"[Sistem] Kritična greška: {t.Exception?.Flatten().InnerException?.Message}");
-                            }
-                        }, TaskContinuationOptions.ExecuteSynchronously);
+                                _processingSemaphore.Release();
+                                if (t.IsFaulted)
+                                {
+                                    Console.WriteLine($"[Sistem] Kritična greška: {t.Exception?.Flatten().InnerException?.Message}");
+                                }
+                            }, TaskContinuationOptions.ExecuteSynchronously);
+                    }
                 }
             }
             catch (OperationCanceledException)
             {
-                Console.WriteLine("[Dispatcher] Red za zahteve je uspešno ugašen preko tokena.");
+                Console.WriteLine("[Dispatcher] Kanal za zahteve je uspešno ugašen preko tokena.");
             }
             catch (Exception ex)
             {
