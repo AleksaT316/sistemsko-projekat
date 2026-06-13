@@ -4,6 +4,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using DotNetEnv;
+
 
 namespace SistemP_Projekat
 {
@@ -51,7 +53,19 @@ namespace SistemP_Projekat
                     else
                     {
                         Console.WriteLine($"[Nit-{threadId}] CACHE MISS -> '{query}'");
-                        string apiUrl = $"https://www.googleapis.com/books/v1/volumes?q={Uri.EscapeDataString(query)}";
+
+                        // cita se .env fajl za API kljuc
+                        Env.Load();
+
+                        string? apiKey = Environment.GetEnvironmentVariable("GOOGLE_BOOKS_API_KEY");
+                        
+                        if (string.IsNullOrEmpty(apiKey))
+                        {
+                            PosaljiOdgovor(context, "{\"error\":\"API kljuc nije postavljen.\"}", 500);
+                            return;
+                        }
+
+                        string apiUrl = $"https://www.googleapis.com/books/v1/volumes?q={Uri.EscapeDataString(query)}&key={apiKey}";
 
                         try
                         {
