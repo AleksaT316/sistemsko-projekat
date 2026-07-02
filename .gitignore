@@ -2,3 +2,14 @@
 .env
 .env.local
 .env.*.local
+
+
+*.log
+*.user
+*.suo
+
+.vs/
+.vscode/
+
+**/bin/
+**/obj/
