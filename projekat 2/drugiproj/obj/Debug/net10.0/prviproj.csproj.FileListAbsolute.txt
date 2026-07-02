@@ -50,3 +50,10 @@ C:\Users\PC\Desktop\Docs\PROJEKTI\SP\projekat 2\drugiproj\bin\Debug\net10.0\Micr
 C:\Users\PC\Desktop\Docs\PROJEKTI\SP\projekat 2\drugiproj\bin\Debug\net10.0\Superpower.dll
 C:\Users\PC\Desktop\Docs\PROJEKTI\SP\projekat 2\drugiproj\obj\Debug\net10.0\prviproj.csproj.AssemblyReference.cache
 C:\Users\PC\Desktop\Docs\PROJEKTI\SP\projekat 2\drugiproj\obj\Debug\net10.0\prviproj.csproj.Up2Date
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 2\drugiproj\bin\Debug\net10.0\DotNetEnv.dll
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 2\drugiproj\bin\Debug\net10.0\Microsoft.Extensions.Configuration.dll
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 2\drugiproj\bin\Debug\net10.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 2\drugiproj\bin\Debug\net10.0\Microsoft.Extensions.Primitives.dll
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 2\drugiproj\bin\Debug\net10.0\Superpower.dll
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 2\drugiproj\obj\Debug\net10.0\prviproj.csproj.AssemblyReference.cache
+C:\Users\stame\Desktop\sistemsko\sistemsko-projekat\projekat 2\drugiproj\obj\Debug\net10.0\prviproj.csproj.Up2Date
