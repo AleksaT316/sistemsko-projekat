@@ -51,20 +51,12 @@ namespace GithubIssueTracker
     
     public static class SharpEntropyTopicModeler
     {
-        // Ova klasa služi kao omotač za SharpEntropy.
-        // Pošto SharpEntropy zahteva prethodno istrenirane modele (.nbin fajlove) za klasifikaciju,
-        // ovde je implementirana osnovna struktura koju možeš zameniti pravim pozivima biblioteke 
-        // zavisno od toga kako ste radili na vežbama.
+
         public static string Analyze(List<string> comments)
         {
             if (comments == null || comments.Count == 0) return "No comments yet";
 
-            // TODO: Ovde ubaciti pravi SharpEntropy MaxentModel i Tokenizer:
-            // ITokenizer tokenizer = new EnglishMaximumEntropyTokenizer("EnglishTok.nbin");
-            // GisModel model = new GisModel(new DefaultModelReader("TopicModel.nbin"));
-            // ...
             
-            // Jednostavna zamena za potrebe demonstracije rada sistema
             string allText = string.Join(" ", comments).ToLower();
             if (allText.Contains("bug") || allText.Contains("error") || allText.Contains("fix"))
                 return "Bug Report / Issue";
@@ -73,7 +65,7 @@ namespace GithubIssueTracker
             
             return "General Discussion";
         }
-    }
+    }//# gotov model za ovo, bilo sta sto radi topic modeling
 
     // ==========================================
     // 3. RX.NET KOMPONENTA (Poller)
@@ -89,8 +81,6 @@ namespace GithubIssueTracker
             // GitHub API zahteva User-Agent header
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "RxAkkaApp-StudentProject");
             
-            // Opciono: Ako brzo dostigneš limit zahteva na GitHub-u (60 po satu), otkomentariši ovo i stavi svoj token
-            // _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer TVOJ_GITHUB_TOKEN");
         }
 
         public static void Start(string owner, string repo, int issueId, IActorRef actor)
@@ -106,7 +96,7 @@ namespace GithubIssueTracker
                 {
                     Console.WriteLine($"[Rx Poller] Greška pri dohvatanju podataka: {ex.Message}");
                     return Observable.Return(new List<GithubComment>());
-                })
+                })//# sto vise razlicitih obrada za greska, forbidden, prazno, inauthorized itd..
                 .Subscribe(
                     comments => 
                     {
@@ -178,7 +168,7 @@ namespace GithubIssueTracker
                         }
 
                         // Pokrećemo Topic Modeling nad svim prikupljenim komentarima
-                        _currentTopic = SharpEntropyTopicModeler.Analyze(_comments);
+                        _currentTopic = SharpEntropyTopicModeler.Analyze(_comments);//# ovde pozvati builtin biblioteku
                     }
                     break;
 
@@ -266,7 +256,7 @@ namespace GithubIssueTracker
                 var context = await listener.GetContextAsync();
                 var request = context.Request;
                 var response = context.Response;
-
+//# fire and forget
                 try
                 {
                     string owner = request.QueryString["owner"];
