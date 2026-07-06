@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Akka" Version="1.5.69" />
+    <PackageReference Include="DotNetEnv" Version="3.2.0" />
     <PackageReference Include="SharpEntropy" Version="1.0.0" />
     <PackageReference Include="System.Reactive" Version="6.1.0" />
     <PackageReference Include="System.Text.Json" Version="10.0.9" />

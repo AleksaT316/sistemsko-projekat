@@ -77,10 +77,18 @@ namespace GithubIssueTracker
 
         static RxGitHubPoller()
         {
+            var token = getToken();
             _httpClient = new HttpClient();
             // GitHub API zahteva User-Agent header
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "RxAkkaApp-StudentProject");
-            
+            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+        }
+
+        public static string getToken()
+        {
+            DotNetEnv.Env.Load();
+            return DotNetEnv.Env.GetString("GITHUB_TOKEN");
         }
 
         public static void Start(string owner, string repo, int issueId, IActorRef actor)
